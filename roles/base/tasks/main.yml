@@ -1,7 +1,7 @@
 ---
 - name: yum or dnf update
   yum:
-    name:*
+    name: *
     state: latest
 
 - name: install list of packages
