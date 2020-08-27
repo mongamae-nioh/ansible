@@ -1,6 +1,6 @@
 ---
 - hosts: target1
-  sudo: yes
+  become: yes
   roles:
   - base
 #  - httpd
