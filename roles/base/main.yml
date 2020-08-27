@@ -10,3 +10,4 @@
     packages:
       - vim
       - wget
+      - git
