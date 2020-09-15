@@ -1,7 +1,7 @@
 ---
-- hosts: target1
+- hosts: all
   become: yes
   roles:
   - base
-#  - httpd
+  - httpd
   - selinux
