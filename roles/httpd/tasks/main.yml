@@ -22,14 +22,14 @@
 
 - name: iptables allow port 80
   lineinfile: dest=/etc/sysconfig/iptables line="-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT" insertafter="^:OUTPUT "
-  notify: restart iptables
+#  notify: restart iptables
   when:
     - ansible_distribution in ['CentOS','RedHat']
     - ansible_distribution_major_version == "6"
 
 - name: firewall-cmd allow port 80
   command: firewall-cmd --permanent --add-port=80/tcp
-  notify: restart firewalld
+#  notify: restart firewalld
   when: 
     - ansible_distribution in ['CentOS','RedHat']
     - ansible_distribution_major_version in ["7", "8"]
