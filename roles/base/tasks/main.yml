@@ -10,3 +10,5 @@
       - vim
       - wget
       - git
+      - bind-utils
+      - chrony
