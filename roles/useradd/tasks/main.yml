@@ -1,0 +1,6 @@
+---
+- name: add user
+  become: True
+  user:
+    name: "{{ item.name }}"
+  with_items: "{{ users }}"

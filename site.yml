@@ -2,6 +2,10 @@
 - hosts: all
   become: yes
   roles:
-  - base
-  - httpd
-  - selinux
+    - common
+    - httpd
+    - selinux
+    - useradd
+    - sshd
+  vars_files:
+    - group_vars/users.yml

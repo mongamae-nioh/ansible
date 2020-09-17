@@ -1,0 +1,45 @@
+---
+- name: make .ssh directory
+  file:
+    path: /home/{{ item.name }}/.ssh
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode:  0700
+  with_items: "{{ users }}"
+
+- name: copy ssh key
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ lookup('file', '/home/{{ item.name }}/.ssh/authorized_keys') }}"
+  with_items: "{{ users }}"
+
+- name: add sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%{{ item.name }} ALL="
+    line: "%{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+    validate: '/usr/sbin/visudo -cf %s'
+  with_items: "{{ users }}"
+
+- name: comment out PermitRootLogin yes
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PermitRootLogin yes"
+    regexp: "^#PermitRootLogin yes"
+    line: "#PermitRootLogin yes"
+
+- name: add PermitRootLogin no
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PermitRootLogin no"
+    insertafter: '^#PermitRootLogin yes'
+    line: "PermitRootLogin no"    
+
+- name: service sshd restart
+  service:
+    name: sshd
+    state: restarted
