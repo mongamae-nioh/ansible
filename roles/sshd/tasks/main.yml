@@ -39,6 +39,22 @@
     insertafter: '^#PermitRootLogin yes'
     line: "PermitRootLogin no"    
 
+- name: comment out PasswordAuthentication no
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PasswordAuthentication yes"
+    insertafter: '^#PasswordAuthentication yes'
+    line: "#PasswordAuthentication yes"
+
+- name: add PasswordAuthentication no
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^PasswordAuthentication no"
+    insertafter: '^#PasswordAuthentication yes'
+    line: "PasswordAuthentication no"
+
 - name: service sshd restart
   service:
     name: sshd
