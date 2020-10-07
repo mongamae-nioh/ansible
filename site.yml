@@ -3,9 +3,13 @@
   become: yes
   roles:
     - common
+    - repositories
     - httpd
+    - php
     - selinux
     - useradd
     - sshd
   vars_files:
     - group_vars/users.yml
+    - group_vars/selinux-status.yml
+    - group_vars/php-modules.yml

@@ -12,3 +12,8 @@
       - git
       - bind-utils
       - chrony
+
+- name: start NTP service
+  service:
+    name: chronyd
+    state: restarted
