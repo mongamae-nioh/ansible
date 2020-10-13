@@ -3,10 +3,10 @@
   yum: 
     name: "{{ item }}"
     state: present
-    with_items:
-      - httpd
-      - mod_ssl
-      - httpd-tools
+  with_items:
+    - httpd
+    - mod_ssl
+    - httpd-tools
 
 - name: CentOS6 start httpd
   service:
