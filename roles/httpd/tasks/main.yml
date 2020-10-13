@@ -3,7 +3,7 @@
   yum: 
     name: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - httpd
     - mod_ssl
     - httpd-tools

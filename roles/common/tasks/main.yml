@@ -4,14 +4,13 @@
 
 - name: install list of packages
   yum:
-    name: "{{ packages }}"
-  vars:
-    packages:
-      - vim
-      - wget
-      - git
-      - bind-utils
-      - chrony
+    name: "{{ item }}"
+  loop:
+    - vim
+    - wget
+    - git
+    - bind-utils
+    - chrony
 
 - name: start NTP service
   service:
