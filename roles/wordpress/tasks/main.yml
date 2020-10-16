@@ -1,0 +1,6 @@
+---
+- name: main / Load MySQL variables
+  include_vars: roles/mysql/vars/main.yml
+
+- include_tasks: roles/wordpress/tasks/install.yml
+- include_tasks: roles/wordpress/tasks/configure.yml

@@ -1,7 +1,3 @@
 ---
-- name: install php module
-  yum:
-    name: "{{ item }}"
-    state: present
-    enablerepo: epel
-  loop: "{{ modules }}"
+- include_tasks: roles/php/tasks/install-modules.yml
+- include_tasks: roles/php/tasks/restart.yml

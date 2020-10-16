@@ -1,0 +1,30 @@
+---
+- name: change root user password
+  mysql_user:
+    login_user: "{{ admin_user_name }}"
+    login_password: "{{ admin_user_password }}"
+    name: "{{ admin_user_name }}"
+    password: "{{ admin_user_password }}"
+    check_implicit_admin: yes
+    state: present
+
+- name: delete anonymous user
+  mysql_user:
+    login_user: "{{ admin_user_name }}"
+    login_password: "{{ admin_user_password }}"
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: MySQL接続時の文字コードセット
+  lineinfile:
+    path: /etc/my.cnf
+    insertafter: '\[mysqld\]'
+    line: 'default-character-set=utf8mb4'
+
+- name: サーバ起動時の文字コードセット
+  lineinfile:
+    dest: /etc/my.cnf.d/mysql-server.cnf
+    insertafter: '\[mysqld\]'
+    line: "character-set-server=utf8mb4"
+

@@ -1,10 +1,10 @@
 ---
 - name: Add EPEL Repository
   yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ os_version }}.noarch.rpm"
     state: present
 
 - name: Add Remi Repository
   yum:
-    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    name: "https://rpms.remirepo.net/enterprise/remi-release-{{ os_version }}.rpm"
     state: present

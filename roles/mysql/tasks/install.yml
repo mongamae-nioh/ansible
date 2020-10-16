@@ -1,0 +1,19 @@
+---
+- name: remove mariadb-libs
+  dnf:
+    state: absent
+    name: mariadb-libs
+
+- name: install mysql server
+  dnf:
+    state: latest
+    name:
+      - mysql-server
+      - python3-PyMySQL
+      - mysql
+
+#- name: restart mysqld
+#  systemd:
+#    name: mysqld
+#    state: started
+#

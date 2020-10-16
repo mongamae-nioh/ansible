@@ -1,6 +1,11 @@
-[target1]
-10.0.2.4
+#[target1]
+#10.0.2.4
 
-[target2]
-10.0.2.5
+#[target2]
+#10.0.2.5
 
+#[target3]
+#10.0.2.6
+
+[eng-server]
+webdb1 ansible_host=10.0.2.6

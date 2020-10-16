@@ -1,0 +1,43 @@
+---
+- name: configure / Fetch random salts for WordPress config
+  uri:
+    url: https://api.wordpress.org/secret-key/1.1/salt/
+    return_content: yes
+  register: "wordpress_salt"
+  run_once: true
+
+- name: configure / Prepare WordPress database
+  block:
+
+  - name: configure / Create WordPress database
+    mysql_db:
+      login_password: "{{ admin_user_password }}"
+      name: "{{ wordpress_db_name }}"
+      state: present
+
+  - name: configure / Create WordPress database user
+    mysql_user:
+      login_password: "{{ admin_user_password }}"
+      name: "{{ wordpress_db_user }}"
+      password: "{{ wordpress_db_password }}"
+      host: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+      priv: "{{ wordpress_db_name }}.*:ALL"
+      state: present
+
+  run_once: true
+  delegate_to: "{{ hostvars.webdb1.ansible_host }}"
+
+- name: configure / Deploy WordPress config file
+  template:
+    src: wp-config.php.j2
+    dest: /var/www/html/wordpress/wp-config.php
+    owner: apache
+    group: apache
+    mode: 0644
+    backup: yes
+
+- name: restart apache service
+  systemd:
+    name: httpd
+    state: restarted
+

@@ -1,5 +1,5 @@
 ---
-- name: yum or dnf update
+- name: yum update
   yum: name=* state=latest
 
 - name: install list of packages
@@ -11,6 +11,10 @@
     - git
     - bind-utils
     - chrony
+
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
 
 - name: start NTP service
   service:

@@ -1,0 +1,5 @@
+---
+- include_tasks: roles/mysql/tasks/install.yml
+- include_tasks: roles/mysql/tasks/restart.yml
+- include_tasks: roles/mysql/tasks/configure.yml
+- include_tasks: roles/mysql/tasks/restart.yml

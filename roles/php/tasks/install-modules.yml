@@ -1,0 +1,63 @@
+---
+#- name: remi enable
+#  dnf:
+#    name: 'http://rpms.famillecollet.com/enterprise/remi-release-8.rpm'
+#    state: present
+
+- name: dnf moduleinstall
+#  shell: 'dnf module reset -y php;dnf module install -y php:remi-7.3'
+  shell: "dnf module reset -y php;dnf module install -y php:remi-{{ php_version }}"
+
+- name: enable powertools
+  shell: 'dnf config-manager --set-enabled PowerTools'
+
+- name: php module install
+  yum:
+    name: "{{ item }}"
+    enablerepo: remi
+  loop: "{{ php_modules }}"
+#    - php-symfony-class-loader
+#    - php-symfony-common
+#    - php-symfony-process
+#    - php-symfony-expression-language
+#    - php-phpmyadmin-motranslator
+#    - php-symfony-filesystem
+#    - php-symfony-yaml
+#    - php-symfony-config
+#    - php-symfony-dependency-injection
+#    - php-symfony-finder
+#    - php-phpmyadmin-sql-parser
+#    - php-symfony-debug
+#    - php-symfony-var-dumper
+#    - php-symfony-css-selector
+#    - php-symfony-dom-crawler
+#    - php-symfony-browser-kit
+#    - php-mysqlnd
+#    - php-composer-xdebug-handler
+#    - php-jsonlint
+#    - php-justinrainbow-json-schema5
+#    - php-seld-phar-utils
+#    - php-composer-semver
+#    - php-composer-ca-bundle
+#    - php-psr-container
+#    - php-phpmyadmin-shapefile
+#    - php-google-recaptcha
+#    - php-composer-spdx-licenses
+#    - php-paragonie-random-compat
+#    - php-gmp
+#    - php-bcmath
+#    - php-phpseclib
+#    - php-pecl-zip
+#    - php-intl
+#    - php-symfony-polyfill
+#    - php-symfony-http-foundation
+#    - php-symfony-console
+#    - php-symfony-event-dispatcher
+#    - php-symfony-http-kernel
+#    - php-symfony3-common
+#    - php-symfony3-translation
+#    - php-twig-extensions
+#    - php-recode
+#    - php-devel
+#    - phpMyAdmin
+#    - php
