@@ -11,9 +11,4 @@
       - mysql-server
       - python3-PyMySQL
       - mysql
-
-#- name: restart mysqld
-#  systemd:
-#    name: mysqld
-#    state: started
 #
