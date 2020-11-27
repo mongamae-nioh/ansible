@@ -20,3 +20,13 @@
   service:
     name: chronyd
     state: restarted
+
+- name: set hostname
+  become: true
+  hostname:
+    name: "{{ hostname }}"
+
+- name: set root password
+  user:
+    name: root
+    password: "{{ '<password>'|password_hash('sha512') }}"
